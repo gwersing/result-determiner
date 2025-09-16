@@ -3,7 +3,8 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 from flask import Flask
-from app.models.configuration import *
+from app.models.configuration.comparison_configuration import *
+from app.models.configuration.result_configuration import *
 
 app = Flask(__name__)
 

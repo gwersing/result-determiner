@@ -1,5 +1,3 @@
-from app.models.configuration import *
-
 class ResultDeterminer:
     def __init__(self, grouped_comparison_config):
         """Will loop through the configured comparisons until it finds the first value result"""

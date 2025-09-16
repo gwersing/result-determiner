@@ -1,11 +1,6 @@
-from enum import Enum
 import operator
+from platform import android_ver
 
-
-class Equality(Enum):
-    EQUALS = operator.eq
-    NOT_EQUALS = operator.ne
-    LESS_THAN = operator.lt
 
 class Comparison:
     operators = {
@@ -22,12 +17,19 @@ class Comparison:
         self.comparison_value = comparison_value
 
     def __eq__(self, other):
-        if (hasattr(other, self.property_name) and
-                self.comparison_type in Comparison.operators
-                and Comparison.operators[self.comparison_type](self.comparison_value, getattr(other, self.property_name))):
-            return True
+        if self.comparison_type in Comparison.operators:
+            value_to_compare = None
+            if isinstance(other, dict) and self.property_name in other:
+                value_to_compare = other.get(self.property_name)
+            elif hasattr(other, self.property_name):
+                value_to_compare = getattr(other, self.property_name)
+
+            if Comparison.operators[self.comparison_type](self.comparison_value, value_to_compare):
+                return True
+            else:
+                return False
         else:
-            return False
+            raise ValueError(f'{self.comparison_type} is not a valid comparison type')
 
     def __hash__(self):
         return f'Comparison_{self.property_name}_{self.comparison_type}_{self.comparison_value}'
@@ -67,13 +69,3 @@ class GroupedComparison:
 # class Result(NextStep):
 #     def __init__(self):
 #         self.json_data = ""
-
-class ClaimProviderConfiguration:
-    def __init__(self, use_attending_provider_npi, use_supervising_provider_npi):
-        self.use_attending_provider_npi = use_attending_provider_npi
-        self.use_supervising_provider_npi = use_supervising_provider_npi
-
-    def __str__(self):
-        return f'ClaimProviderConfiguration:use_attending_provider_npi:{self.use_attending_provider_npi},use_supervising_provider_npi:{self.use_supervising_provider_npi}'
-
-
