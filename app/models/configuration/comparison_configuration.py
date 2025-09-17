@@ -52,7 +52,7 @@ class GroupedComparison:
         # all and comparisons passed
         if and_comparisons_passed and self.or_comparisons is not None:
             for o in self.or_comparisons:
-                if self == other:
+                if o == other:
                     or_comparison_passed = True
                     break
 
