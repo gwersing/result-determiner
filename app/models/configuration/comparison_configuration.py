@@ -1,6 +1,4 @@
 import operator
-from platform import android_ver
-
 
 class Comparison:
     """Class to compare any value (either in a dictionary or an attribute in an instance of a class) to an expected value"""
@@ -58,7 +56,7 @@ class GroupedComparison:
         if self.and_comparisons is not None:
             for a in self.and_comparisons:
                 if not a == other:
-                    and_comparisons_passed = False  # TODO: Break out of upper loop and go to next grouped comparison
+                    and_comparisons_passed = False
                     break
 
         or_comparison_passed = False
