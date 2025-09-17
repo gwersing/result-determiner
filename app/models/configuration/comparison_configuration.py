@@ -3,6 +3,7 @@ from platform import android_ver
 
 
 class Comparison:
+    """Class to compare any value (either in a dictionary or an attribute in an instance of a class) to an expected value"""
     operators = {
         "==": operator.eq,
         "!=": operator.ne,
@@ -12,6 +13,12 @@ class Comparison:
         ">=": operator.ge,
     }
     def __init__(self, property_name, comparison_type, comparison_value):
+        """
+        Args:
+            property_name (str): name of attribute to compare against
+            comparison_type (str): operator type to compare values
+            comparison_value (object): expected value to compare against
+        """
         self.property_name = property_name
         self.comparison_type = comparison_type
         self.comparison_value = comparison_value
@@ -36,6 +43,12 @@ class Comparison:
 
 class GroupedComparison:
     def __init__(self, and_comparisons, or_comparisons, result):
+        """
+        Args:
+            and_comparisons (list[Comparison]): list of comparisons that all must return true to pass
+            or_comparisons (list[Comparison]): list of comparisons that must have at least one true to pass
+            result (object): object to return if comparisons passed
+        """
         self.and_comparisons = and_comparisons
         self.or_comparisons = or_comparisons
         self.result = result
@@ -60,12 +73,3 @@ class GroupedComparison:
 
         return comparison_passed
 
-# class ComparisonStep(NextStep):
-#     def __init__(self):
-#         self.comparison = Comparison()
-#         self.step_when_yes = NextStep()      #set to Comparison or result
-#         self.step_when_no = NextStep()      #set to Comparison or result
-#
-# class Result(NextStep):
-#     def __init__(self):
-#         self.json_data = ""

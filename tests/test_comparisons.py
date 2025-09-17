@@ -18,10 +18,6 @@ def sample_values():
 def sample_object(sample_values):
     return ComparisonTestModel(**sample_values)
 
-@pytest.fixture
-def sample_class_values():
-    return ComparisonTestModel('red', datetime(1990, 1, 1), 25)
-
 class TestComparisonValues:
     #TODO: write tests for GroupedComparison
     #TODO: add in comments
@@ -95,7 +91,7 @@ class TestComparisonValues:
         comparison =Comparison("age", "<", 24)
         assert comparison == sample_object
 
-    def test_grouped_comparison_eq(self, sample_values):
+    def test_grouped_comparison_eq_dict(self, sample_values):
         and_comparisons = [
             Comparison("color", "==", "red"),
             Comparison("age", ">=", 26)
@@ -106,3 +102,39 @@ class TestComparisonValues:
         ]
         comparison = GroupedComparison(and_comparisons, or_comparisons, {})
         assert comparison ==sample_values
+
+    def test_grouped_comparison_ne_dict(self, sample_values):
+        and_comparisons = [
+            Comparison("color", "==", "green"),
+            Comparison("age", ">=", 26)
+        ]
+        or_comparisons = [
+            Comparison("dob", "<=", datetime(1990,1,1)),
+            Comparison("dob", "<=", datetime(1989,1,1)),
+        ]
+        comparison = GroupedComparison(and_comparisons, or_comparisons, {})
+        assert comparison != sample_values
+
+    def test_grouped_comparison_eq_class(self, sample_object):
+        and_comparisons = [
+            Comparison("color", "==", "red"),
+            Comparison("age", ">=", 26)
+        ]
+        or_comparisons = [
+            Comparison("dob", "<=", datetime(1990,1,1)),
+            Comparison("dob", "<=", datetime(1989,1,1)),
+        ]
+        comparison = GroupedComparison(and_comparisons, or_comparisons, {})
+        assert comparison ==sample_object
+
+    def test_grouped_comparison_ne_class(self, sample_object):
+        and_comparisons = [
+            Comparison("color", "==", "green"),
+            Comparison("age", ">=", 26)
+        ]
+        or_comparisons = [
+            Comparison("dob", "<=", datetime(1990,1,1)),
+            Comparison("dob", "<=", datetime(1989,1,1)),
+        ]
+        comparison = GroupedComparison(and_comparisons, or_comparisons, {})
+        assert comparison != sample_object

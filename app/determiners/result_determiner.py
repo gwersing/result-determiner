@@ -4,6 +4,12 @@ class ResultDeterminer:
         self.grouped_comparison_config = grouped_comparison_config
 
     def get_result(self, comparison_data):
+        """
+        Args:
+            comparison_data (list[GroupedComparison]): list of all comparisons to run sequentially
+        Returns:
+            result object in first GroupedComparison that passes
+        """
         result = None
         for i in self.grouped_comparison_config:
             if self.comparison_passes(i, comparison_data):
