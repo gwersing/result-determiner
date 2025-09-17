@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Decision Processor</title>
+
+    <style type="text/css">
+        body {
+            margin:0px 10px;
+            font-family: "Arial", Helvetica, sans-serif;
+        }
+        #container-tests-ran {
+            border:1px solid black;
+            width:100%
+        }
+        #container-tests-ran .header
+        {
+            width:100%;
+            padding:10px 0px;
+            border:1px solid black;
+            background-color: #d7d7d7;
+        }
+        #container-tests-ran .header span
+        {
+            margin-left:5px;
+            font-weight: bold;
+        }
+        #container-tests-ran table
+        {
+            width:100%;
+            border-collapse:collapse;
+        }
+        #container-tests-ran table thead tr th
+        {
+            text-align: left;
+        }
+        #container-tests-ran table tr td, #container-tests-ran table tr th
+        {
+            border: 1px solid #d7d7d7;
+            margin:2px;
+        }
+        #container-tests-ran table tr td>span::after
+        {
+            content: "\A";
+            white-space: pre;
+        }
+        #container-tests-ran .keyname
+        {
+            font-weight: bold
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="container-tests-ran">
+            <div class="header">
+                <span>Tests Ran</span>
+            </div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Test Values</th>
+                    <th>Results</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for test_ran in tests_ran %}
+                        <tr>
+                            <td>
+                                {% for key, value in test_ran.comparison_data.items() %}
+                                    <span style="display:block>"><span class="keyname">{{key}}</span>: {{value}}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {{test_ran.result}}
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

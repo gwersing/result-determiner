@@ -6,9 +6,9 @@ class ResultDeterminer:
     def get_result(self, comparison_data):
         """
         Args:
-            comparison_data (list[GroupedComparison]): list of all comparisons to run sequentially
+            comparison_data (list[obj]): list of all comparisons to run sequentially
         Returns:
-            result object in first GroupedComparison that passes
+            result object in first GroupedComparison of configs that passes
         """
         result = None
         for i in self.grouped_comparison_config:
