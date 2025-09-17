@@ -40,7 +40,7 @@ class Comparison:
         return f'Comparison_{self.property_name}_{self.comparison_type}_{self.comparison_value}'
 
 class GroupedComparison:
-    def __init__(self, and_comparisons, or_comparisons, result):
+    def __init__(self, and_comparisons=None, or_comparisons=None, result=None):
         """
         Args:
             and_comparisons (list[Comparison]): list of comparisons that all must return true to pass
@@ -59,15 +59,17 @@ class GroupedComparison:
                     and_comparisons_passed = False
                     break
 
-        or_comparison_passed = False
+        comparison_passed = and_comparisons_passed
+
         # all and comparisons passed
-        if and_comparisons_passed and self.or_comparisons is not None:
+        if comparison_passed and self.or_comparisons is not None:
+            or_comparison_passed = False
             for o in self.or_comparisons:
                 if o == other:
                     or_comparison_passed = True
                     break
 
-        comparison_passed = and_comparisons_passed and or_comparison_passed
+            comparison_passed = comparison_passed and or_comparison_passed
 
         return comparison_passed
 

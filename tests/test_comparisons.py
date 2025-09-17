@@ -136,3 +136,21 @@ class TestComparisonValues:
         ]
         comparison = GroupedComparison(and_comparisons, or_comparisons, {})
         assert comparison != sample_object
+
+    def test_grouped_comparison_no_ors(self, sample_object):
+        and_comparisons = [
+            Comparison("color", "==", "red"),
+            Comparison("age", "==", 25)
+        ]
+
+        comparison = GroupedComparison(and_comparisons)
+        assert comparison == sample_object
+
+    def test_grouped_comparison_no_ands(self, sample_object):
+        or_comparisons = [
+            Comparison("color", "==", "green"),
+            Comparison("age", "==", 25)
+        ]
+
+        comparison = GroupedComparison(and_comparisons=None, or_comparisons = or_comparisons)
+        assert comparison == sample_object
