@@ -19,8 +19,6 @@ def sample_object(sample_values):
     return ComparisonTestModel(**sample_values)
 
 class TestComparisonValues:
-    #TODO: write tests for GroupedComparison
-    #TODO: add in comments
     def test_comparison_invalid_comparison_type(self, sample_values):
         comparison =Comparison("color", "=!", "green")
         with pytest.raises(ValueError):
