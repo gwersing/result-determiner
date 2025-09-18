@@ -39,6 +39,9 @@ class Comparison:
     def __hash__(self):
         return f'Comparison_{self.property_name}_{self.comparison_type}_{self.comparison_value}'
 
+    def __str__(self):
+        return f'({self.property_name} {self.comparison_type} {self.comparison_value})'
+
 class GroupedComparison:
     def __init__(self, and_comparisons=None, or_comparisons=None, result=None):
         """
@@ -72,4 +75,24 @@ class GroupedComparison:
             comparison_passed = comparison_passed and or_comparison_passed
 
         return comparison_passed
+
+    def get_comparisons_as_str(self):
+        str_elements = []
+        if self.and_comparisons is not None:
+            str_elements.append('(')
+            and_elements = []
+            for comparison in self.and_comparisons:
+                and_elements.append(str(comparison))
+            str_elements.append(" and ".join(and_elements))
+            str_elements.append(')')
+        if self.or_comparisons is not None:
+            if len(str_elements) > 0:
+                str_elements.append(' and ')
+            str_elements.append('(')
+            or_elements = []
+            for comparison in self.or_comparisons:
+                or_elements.append(str(comparison))
+            str_elements.append(" or ".join(or_elements))
+            str_elements.append(')')
+        return "".join(str_elements)
 
