@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 from app.determiners.result_determiner import ResultDeterminer
 from app.models.configuration.comparison_configuration import *
